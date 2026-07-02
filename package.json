@@ -1,9 +1,10 @@
 {
   "name": "prof-a-la-maison",
   "version": "1.0.0",
-  "description": "",
-  "main": "script.js",
+  "description": "Plateforme de mise en relation parents-professeurs à Djibouti",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
