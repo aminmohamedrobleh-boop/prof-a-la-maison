@@ -4,10 +4,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const pool = require('./database-pg');
+const { Resend } = require('resend');
 
 dotenv.config();
 
 const app = express();
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.use(cors());
 app.use(express.json());
@@ -250,6 +252,74 @@ app.get('/api/prof/profil/:id', async (req, res) => {
     res.json(result.rows[0]);
   } catch (err) {
     res.status(500).json({ erreur: 'Erreur serveur.' });
+  }
+});
+
+// ===== MOT DE PASSE OUBLIÉ =====
+app.post('/api/mot-de-passe-oublie', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const result = await pool.query('SELECT * FROM utilisateurs WHERE email = $1', [email]);
+
+    if (result.rows.length === 0) {
+      return res.status(400).json({ erreur: 'Aucun compte trouvé avec cet email.' });
+    }
+
+    const utilisateur = result.rows[0];
+
+    const token = jwt.sign(
+      { id: utilisateur.id, email: utilisateur.email },
+      'secret_reset_mdp',
+      { expiresIn: '30m' }
+    );
+
+    const lien = `${process.env.URL_SITE}/reset-password.html?token=${token}`;
+
+    await resend.emails.send({
+      from: 'Prof à la Maison <onboarding@resend.dev>',
+      to: email,
+      subject: 'Réinitialisation de votre mot de passe',
+      html: `
+        <div style="font-family: sans-serif; max-width: 500px; margin: 0 auto;">
+          <h2 style="color: #534AB7;">Prof à la Maison Djibouti</h2>
+          <p>Bonjour ${utilisateur.prenom},</p>
+          <p>Vous avez demandé à réinitialiser votre mot de passe.</p>
+          <p>Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe :</p>
+          <a href="${lien}" style="background:#534AB7; color:white; padding:12px 24px; border-radius:8px; text-decoration:none; display:inline-block; margin:16px 0;">
+            Réinitialiser mon mot de passe
+          </a>
+          <p style="color:#777; font-size:13px;">Ce lien expire dans 30 minutes.</p>
+          <p style="color:#777; font-size:13px;">Si vous n'avez pas demandé cette réinitialisation, ignorez cet email.</p>
+        </div>
+      `
+    });
+
+    res.json({ message: 'Email envoyé avec succès !' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erreur: 'Erreur lors de l\'envoi de l\'email.' });
+  }
+});
+
+// ===== RÉINITIALISER MOT DE PASSE =====
+app.post('/api/reset-password', async (req, res) => {
+  const { token, nouveau_mot_de_passe } = req.body;
+
+  try {
+    const decoded = jwt.verify(token, 'secret_reset_mdp');
+    const motDePasseChiffre = bcrypt.hashSync(nouveau_mot_de_passe, 10);
+
+    await pool.query(
+      'UPDATE utilisateurs SET mot_de_passe = $1 WHERE id = $2',
+      [motDePasseChiffre, decoded.id]
+    );
+
+    res.json({ message: 'Mot de passe mis à jour avec succès !' });
+
+  } catch (err) {
+    res.status(400).json({ erreur: 'Lien invalide ou expiré.' });
   }
 });
 
