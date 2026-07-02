@@ -219,7 +219,7 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'Serveur Prof à la Maison fonctionne !' });
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
