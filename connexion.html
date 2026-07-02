@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion - Prof à la Maison</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="inscription.css">
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">Prof<span>àlaMaison</span></div>
+    <div class="nav-liens">
+      <a href="index.html">← Retour</a>
+      <a href="inscription.html" class="btn-inscription">S'inscrire</a>
+    </div>
+  </nav>
+
+  <!-- FORMULAIRE CONNEXION -->
+  <div class="form-container">
+
+    <div class="form-header">
+      <h1>Connexion</h1>
+      <p>Bon retour sur Prof à la Maison Djibouti</p>
+    </div>
+
+    <div class="form-groupe">
+
+      <div class="form-champ">
+        <label>Email</label>
+        <input type="email" placeholder="votre@email.com">
+      </div>
+
+      <div class="form-champ">
+        <label>Mot de passe</label>
+        <input type="password" placeholder="Votre mot de passe">
+      </div>
+
+      <div class="form-oublie">
+        <a href="mot-de-passe-oublie.html">Mot de passe oublié ?</a>
+      </div>
+
+    </div>
+
+    <button class="btn-soumettre">Se connecter</button>
+
+    <p class="form-lien">Pas encore de compte ? <a href="inscription.html">S'inscrire</a></p>
+
+  </div>
+
+  <script>
+    document.querySelector('.btn-soumettre').addEventListener('click', async function() {
+
+      const email = document.querySelector('input[type="email"]').value;
+      const mot_de_passe = document.querySelector('input[type="password"]').value;
+
+      if (!email || !mot_de_passe) {
+        alert('Veuillez remplir tous les champs.');
+        return;
+      }
+
+      try {
+        const reponse = await fetch('/api/connexion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, mot_de_passe })
+        });
+
+        const data = await reponse.json();
+
+        if (reponse.ok) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('utilisateur', JSON.stringify(data.utilisateur));
+
+          if (data.utilisateur.type === 'prof') {
+            window.location = 'dashboard-prof.html';
+          } else {
+            window.location = 'dashboard.html';
+          }
+
+        } else if (reponse.status === 403 && data.erreur === 'en_attente') {
+
+          document.querySelector('.form-container').innerHTML = `
+            <div style="text-align:center; padding: 40px 20px;">
+              <div style="font-size:64px; margin-bottom:20px;">⏳</div>
+              <h1 style="font-size:22px; font-weight:600; margin-bottom:12px; color:#222;">Compte en cours de validation</h1>
+              <p style="font-size:14px; color:#555; line-height:1.7; margin-bottom:24px;">${data.message}</p>
+              <div style="background:#EEEDFE; border-radius:12px; padding:20px; margin-bottom:24px; text-align:left;">
+                <p style="font-size:13px; color:#534AB7; font-weight:500; margin-bottom:8px;">📋 Prochaines étapes :</p>
+                <p style="font-size:13px; color:#534AB7;">1. Notre équipe vérifie vos documents</p>
+                <p style="font-size:13px; color:#534AB7;">2. Vous recevrez une confirmation</p>
+                <p style="font-size:13px; color:#534AB7;">3. Votre profil sera visible sur la plateforme</p>
+              </div>
+              <a href="index.html" style="color:#534AB7; font-size:14px; text-decoration:none;">← Retour à l'accueil</a>
+            </div>
+          `;
+
+        } else {
+          alert(data.erreur);
+        }
+
+      } catch (erreur) {
+        alert('Erreur de connexion au serveur.');
+      }
+
+    });
+  </script>
+
+</body>
+</html>

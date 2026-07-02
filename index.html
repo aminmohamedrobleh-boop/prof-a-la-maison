@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prof à la Maison - Djibouti</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">Prof<span>àlaMaison</span></div>
+    <div class="nav-liens">
+      <a href="#">Trouver un prof</a>
+      <a href="#">Devenir prof</a>
+      <a href="connexion.html" class="btn-connexion">Connexion</a>
+      <a href="inscription.html" class="btn-inscription">S'inscrire</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Trouvez le prof idéal pour votre enfant</h1>
+    <p>Des professeurs qualifiés, à domicile, partout à Djibouti</p>
+    <div class="recherche">
+      <select id="select-matiere">
+        <option value="tous">Matière</option>
+        <option value="francais">Français</option>
+        <option value="mathematiques">Mathématiques</option>
+        <option value="physique-chimie">Physique-Chimie</option>
+        <option value="anglais">Anglais</option>
+        <option value="arabe">Arabe</option>
+        <option value="histoire-geographie">Histoire-Géographie</option>
+      </select>
+      <select id="select-niveau">
+        <option value="tous">Niveau</option>
+        <option value="primaire">Primaire</option>
+        <option value="college">Collège</option>
+        <option value="lycee">Lycée</option>
+      </select>
+      <select id="select-region">
+        <option value="tous">Région</option>
+        <option value="djibouti-ville">Djibouti-Ville</option>
+        <option value="dikhil">Dikhil</option>
+        <option value="arta">Arta</option>
+        <option value="tadjourah">Tadjourah</option>
+        <option value="obock">Obock</option>
+        <option value="ali-sabieh">Ali-Sabieh</option>
+      </select>
+      <button id="btn-rechercher">Rechercher</button>
+    </div>
+  </section>
+
+  <!-- SECTION PROFESSEURS -->
+  <section class="profs">
+    <h2>Professeurs disponibles près de chez vous</h2>
+
+    <div class="filtres">
+      <button class="filtre actif">Tous</button>
+      <button class="filtre">Français</button>
+      <button class="filtre">Mathématiques</button>
+      <button class="filtre">Physique-Chimie</button>
+      <button class="filtre">Anglais</button>
+      <button class="filtre">Arabe</button>
+      <button class="filtre">Histoire-Géographie</button>
+    </div>
+
+    <div class="grille-profs" id="grille-profs"></div>
+
+  </section>
+
+  <!-- COMMENT ÇA MARCHE -->
+  <section class="comment">
+    <h2>Comment ça marche ?</h2>
+    <div class="etapes">
+      <div class="etape">
+        <div class="icone">🔍</div>
+        <div class="etape-num">Étape 1</div>
+        <h3>Recherchez</h3>
+        <p>Filtrez par matière, niveau et région</p>
+      </div>
+      <div class="etape">
+        <div class="icone">👤</div>
+        <div class="etape-num">Étape 2</div>
+        <h3>Choisissez</h3>
+        <p>Consultez les profils et les avis</p>
+      </div>
+      <div class="etape">
+        <div class="icone">📅</div>
+        <div class="etape-num">Étape 3</div>
+        <h3>Réservez</h3>
+        <p>Choisissez un créneau disponible</p>
+      </div>
+      <div class="etape">
+        <div class="icone">🏠</div>
+        <div class="etape-num">Étape 4</div>
+        <h3>Apprenez</h3>
+        <p>Le prof vient à votre domicile</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIED DE PAGE -->
+  <footer>
+    <div class="logo">Prof<span>àlaMaison</span></div>
+    <p class="footer-text">© 2026 · Tous droits réservés · Djibouti</p>
+    <div class="footer-liens">
+      <a href="#">CGU</a>
+      <a href="#">Contact</a>
+      <a href="#">Aide</a>
+    </div>
+  </footer>
+
+  <script>
+    const couleurs = ['violet', 'vert', 'bleu', 'orange'];
+
+    async function chargerProfs() {
+      try {
+        const reponse = await fetch('/api/professeurs-verifies');
+        const profs = await reponse.json();
+
+        const grille = document.getElementById('grille-profs');
+
+        if (profs.length === 0) {
+          grille.innerHTML = `
+            <div style="text-align:center; padding:40px; color:#777; grid-column:1/-1;">
+              <p style="font-size:16px;">Aucun professeur disponible pour l'instant.</p>
+            </div>
+          `;
+          return;
+        }
+
+        grille.innerHTML = profs.map((p, i) => `
+          <div class="carte-prof" data-matiere="${p.matiere}" data-niveau="${p.niveau}" data-region="${p.region}" onclick="window.location='profil.html'">
+            <div class="avatar ${couleurs[i % couleurs.length]}">${p.prenom[0]}${p.nom[0]}</div>
+            <span class="badge vert">✓ Disponible</span>
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:2px;">
+              <h3 style="margin:0; font-size:15px;">${p.prenom} ${p.nom}</h3>
+              <div style="position:relative; display:inline-flex; cursor:pointer;"
+                onmouseenter="this.querySelector('.tip').style.opacity=1; this.querySelector('.tip').style.visibility='visible';"
+                onmouseleave="this.querySelector('.tip').style.opacity=0; this.querySelector('.tip').style.visibility='hidden';">
+                <svg width="20" height="20" viewBox="0 0 20 20" aria-label="Professeur vérifié par notre équipe">
+                  <circle cx="10" cy="10" r="10" fill="#1D9E75"/>
+                  <text x="10" y="15" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="white">R</text>
+                </svg>
+                <div class="tip" style="position:absolute; bottom:26px; left:50%; transform:translateX(-50%); background:#222; color:white; font-size:11px; padding:5px 10px; border-radius:8px; white-space:nowrap; opacity:0; visibility:hidden; transition:opacity 0.2s; pointer-events:none; z-index:10;">✓ Professeur vérifié par notre équipe</div>
+              </div>
+            </div>
+            <p class="matiere">${p.matiere} · ${p.niveau}</p>
+            <p class="ville">${p.region} · ${p.experience} ans d'expérience</p>
+            <div class="bas-carte">
+              <span class="etoiles">★ 5.0</span>
+              <span class="prix">${p.tarif} FDJ/h</span>
+            </div>
+          </div>
+        `).join('');
+
+        initialiserFiltres();
+
+      } catch (erreur) {
+        console.log('Erreur chargement profs:', erreur);
+      }
+    }
+
+    function initialiserFiltres() {
+      const filtres = document.querySelectorAll('.filtre');
+
+      filtres.forEach(function(bouton) {
+        bouton.addEventListener('click', function() {
+          filtres.forEach(function(b) { b.classList.remove('actif'); });
+          bouton.classList.add('actif');
+
+          const matiere = bouton.textContent.toLowerCase().trim()
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            .replace(/\s+/g, '-');
+
+          document.querySelectorAll('.carte-prof').forEach(function(carte) {
+            if (matiere === 'tous' || carte.dataset.matiere === matiere) {
+              carte.style.display = 'block';
+            } else {
+              carte.style.display = 'none';
+            }
+          });
+        });
+      });
+    }
+
+    document.getElementById('btn-rechercher').addEventListener('click', function() {
+      const matiere = document.getElementById('select-matiere').value;
+      const niveau = document.getElementById('select-niveau').value;
+      const region = document.getElementById('select-region').value;
+
+      document.querySelectorAll('.carte-prof').forEach(function(carte) {
+        const okMatiere = matiere === 'tous' || carte.dataset.matiere === matiere;
+        const okNiveau = niveau === 'tous' || carte.dataset.niveau === niveau;
+        const okRegion = region === 'tous' || carte.dataset.region === region;
+
+        if (okMatiere && okNiveau && okRegion) {
+          carte.style.display = 'block';
+        } else {
+          carte.style.display = 'none';
+        }
+      });
+    });
+
+    chargerProfs();
+  </script>
+
+</body>
+</html>

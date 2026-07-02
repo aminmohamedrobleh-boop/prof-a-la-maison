@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mot de passe oublié - Prof à la Maison</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="inscription.css">
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">Prof<span>àlaMaison</span></div>
+    <div class="nav-liens">
+      <a href="connexion.html">← Retour</a>
+    </div>
+  </nav>
+
+  <!-- ÉTAPE 1 : ENTRER EMAIL -->
+  <div class="form-container" id="etape-1">
+
+    <div class="form-header">
+      <div style="font-size:48px; margin-bottom:16px;">🔐</div>
+      <h1>Mot de passe oublié ?</h1>
+      <p>Entrez votre email et on vous envoie un lien de réinitialisation</p>
+    </div>
+
+    <div class="form-groupe">
+      <div class="form-champ">
+        <label>Votre email</label>
+        <input type="email" id="email-input" placeholder="votre@email.com">
+      </div>
+    </div>
+
+    <button class="btn-soumettre" onclick="envoyerEmail()">Envoyer le lien</button>
+    <p class="form-lien"><a href="connexion.html">← Retour à la connexion</a></p>
+
+  </div>
+
+  <!-- ÉTAPE 2 : CONFIRMATION -->
+  <div class="form-container" id="etape-2" style="display:none;">
+
+    <div class="form-header">
+      <div style="font-size:48px; margin-bottom:16px;">📧</div>
+      <h1>Email envoyé !</h1>
+      <p id="message-email">Un lien de réinitialisation a été envoyé à votre adresse email.</p>
+    </div>
+
+    <div class="confirmation-box">
+      <p>📌 Vérifiez votre boîte mail et cliquez sur le lien pour réinitialiser votre mot de passe.</p>
+      <p style="margin-top:8px;">Le lien expire dans <strong>30 minutes</strong>.</p>
+    </div>
+
+    <button class="btn-soumettre" onclick="window.location='connexion.html'">Retour à la connexion</button>
+    <p class="form-lien">Pas reçu ? <a href="#" onclick="renvoyerEmail()">Renvoyer l'email</a></p>
+
+  </div>
+
+  <script>
+    function envoyerEmail() {
+      const email = document.getElementById('email-input').value;
+
+      if (!email) {
+        alert('Veuillez entrer votre email.');
+        return;
+      }
+
+      if (!email.includes('@')) {
+        alert('Veuillez entrer un email valide.');
+        return;
+      }
+
+      // Afficher l'étape 2
+      document.getElementById('etape-1').style.display = 'none';
+      document.getElementById('etape-2').style.display = 'block';
+      document.getElementById('message-email').textContent =
+        'Un lien de réinitialisation a été envoyé à ' + email;
+    }
+
+    function renvoyerEmail() {
+      alert('Email renvoyé !');
+    }
+  </script>
+
+</body>
+</html>

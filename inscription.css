@@ -1,0 +1,236 @@
+.form-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 24px 60px;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.form-header h1 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.form-header p {
+  font-size: 14px;
+  color: #777;
+}
+
+/* TYPE PARENT / PROF */
+.type-choix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.type-carte {
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.type-carte.actif {
+  border-color: #534AB7;
+  background: #EEEDFE;
+}
+
+.type-icone {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.type-titre {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #222;
+}
+
+.type-desc {
+  font-size: 12px;
+  color: #777;
+}
+
+/* FORMULAIRE */
+.form-groupe {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.form-ligne {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-champ {
+  margin-bottom: 16px;
+}
+
+.form-champ label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.form-champ input,
+.form-champ select,
+.form-champ textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #222;
+  background: white;
+}
+
+.form-champ textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.form-champ input:focus,
+.form-champ select:focus,
+.form-champ textarea:focus {
+  outline: none;
+  border-color: #534AB7;
+}
+
+.form-sous-titre {
+  font-size: 15px;
+  font-weight: 600;
+  color: #534AB7;
+  margin-bottom: 16px;
+}
+
+/* BOUTON */
+.btn-soumettre {
+  width: 100%;
+  padding: 14px;
+  background: #534AB7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.btn-soumettre:hover {
+  background: #3C3489;
+}
+
+.form-lien {
+  text-align: center;
+  font-size: 13px;
+  color: #777;
+}
+
+.form-lien a {
+  color: #534AB7;
+  text-decoration: none;
+  font-weight: 500;
+}
+/* UPLOAD */
+.upload-info {
+  display: flex;
+  gap: 10px;
+  background: #E6F1FB;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+
+.upload-info-icone {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.upload-info p {
+  font-size: 13px;
+  color: #185FA5;
+  line-height: 1.5;
+}
+
+.upload-zone {
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.upload-zone:hover {
+  border-color: #534AB7;
+  background: #EEEDFE;
+}
+
+.upload-icone {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.upload-texte {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+.upload-sous-texte {
+  font-size: 12px;
+  color: #999;
+}
+
+.upload-nom {
+  font-size: 13px;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* MOT DE PASSE OUBLIÉ */
+.form-oublie {
+  text-align: right;
+  margin-top: -8px;
+  margin-bottom: 8px;
+}
+
+.form-oublie a {
+  font-size: 13px;
+  color: #534AB7;
+  text-decoration: none;
+}
+
+.form-oublie a:hover {
+  text-decoration: underline;
+}
+
+/* CONFIRMATION BOX */
+.confirmation-box {
+  background: #EAF3DE;
+  border: 1px solid #C0DD97;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #3B6D11;
+  line-height: 1.6;
+}

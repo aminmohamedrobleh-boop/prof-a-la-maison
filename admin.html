@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Prof à la Maison</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo">Prof<span>àlaMaison</span> <span style="font-size:12px; background:#534AB7; color:white; padding:2px 8px; border-radius:4px; margin-left:8px;">ADMIN</span></div>
+    <div class="nav-liens">
+      <a href="index.html">Accueil</a>
+      <a href="#" onclick="seDeconnecter()" class="btn-connexion">Déconnexion</a>
+    </div>
+  </nav>
+
+  <div class="dashboard-container">
+
+    <div class="dashboard-header">
+      <h1>Panel Admin</h1>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grille">
+      <div class="stat-carte">
+        <div class="stat-num" id="total-profs">0</div>
+        <div class="stat-label">Profs inscrits</div>
+      </div>
+      <div class="stat-carte">
+        <div class="stat-num" id="profs-attente">0</div>
+        <div class="stat-label">En attente</div>
+      </div>
+      <div class="stat-carte">
+        <div class="stat-num" id="profs-valides">0</div>
+        <div class="stat-label">Validés</div>
+      </div>
+    </div>
+
+    <!-- PROFS EN ATTENTE -->
+    <div class="dashboard-section">
+      <h2>Professeurs en attente de validation</h2>
+      <div id="liste-profs-attente"></div>
+    </div>
+
+    <!-- PROFS VALIDÉS -->
+    <div class="dashboard-section">
+      <h2>Professeurs validés</h2>
+      <div id="liste-profs-valides"></div>
+    </div>
+
+  </div>
+
+  <script>
+    async function chargerProfs() {
+      const reponse = await fetch('/api/admin/professeurs');
+      const profs = await reponse.json();
+
+      const attente = profs.filter(p => p.verifie === 0);
+      const valides = profs.filter(p => p.verifie === 1);
+
+      document.getElementById('total-profs').textContent = profs.length;
+      document.getElementById('profs-attente').textContent = attente.length;
+      document.getElementById('profs-valides').textContent = valides.length;
+
+      // Profs en attente
+      const listeAttente = document.getElementById('liste-profs-attente');
+      if (attente.length === 0) {
+        listeAttente.innerHTML = '<p style="color:#777; font-size:14px;">Aucun prof en attente.</p>';
+      } else {
+        listeAttente.innerHTML = attente.map(p => `
+          <div class="reservation-carte">
+            <div class="res-header">
+              <div class="res-avatar" style="background:#FAEEDA; color:#854F0B;">${p.prenom[0]}${p.nom[0]}</div>
+              <div>
+                <div class="res-nom">${p.prenom} ${p.nom}</div>
+                <div class="res-matiere">${p.matiere} · ${p.niveau} · ${p.region}</div>
+              </div>
+              <span class="res-statut orange">En attente</span>
+            </div>
+            <div class="res-infos">
+              <span>📧 ${p.email}</span>
+              <span>📞 ${p.telephone}</span>
+              <span>💰 ${p.tarif} FDJ/h</span>
+              <span>⏳ ${p.experience} ans exp.</span>
+            </div>
+            <p style="font-size:13px; color:#555; margin-top:10px;">${p.bio || 'Pas de bio.'}</p>
+            <div class="res-actions">
+              <button class="btn-accepter" onclick="validerProf(${p.prof_id}, 1)">✓ Valider</button>
+              <button class="btn-refuser" onclick="validerProf(${p.prof_id}, 0)">✕ Refuser</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Profs validés
+      const listeValides = document.getElementById('liste-profs-valides');
+      if (valides.length === 0) {
+        listeValides.innerHTML = '<p style="color:#777; font-size:14px;">Aucun prof validé.</p>';
+      } else {
+        listeValides.innerHTML = valides.map(p => `
+          <div class="reservation-carte">
+            <div class="res-header">
+              <div class="res-avatar" style="background:#EAF3DE; color:#3B6D11;">${p.prenom[0]}${p.nom[0]}</div>
+              <div>
+                <div class="res-nom">${p.prenom} ${p.nom}</div>
+                <div class="res-matiere">${p.matiere} · ${p.niveau} · ${p.region}</div>
+              </div>
+              <span class="res-statut vert">✓ Validé</span>
+            </div>
+            <div class="res-infos">
+              <span>📧 ${p.email}</span>
+              <span>💰 ${p.tarif} FDJ/h</span>
+              <span>⏳ ${p.experience} ans exp.</span>
+            </div>
+            <div class="res-actions">
+              <button class="btn-refuser" onclick="validerProf(${p.prof_id}, 0)">Retirer la validation</button>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    async function validerProf(profId, statut) {
+      const reponse = await fetch('/api/admin/valider-prof/' + profId, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ verifie: statut })
+      });
+
+      if (reponse.ok) {
+        alert(statut === 1 ? 'Professeur validé !' : 'Validation retirée.');
+        chargerProfs();
+      }
+    }
+
+    function seDeconnecter() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('utilisateur');
+      window.location = 'index.html';
+    }
+
+    chargerProfs();
+  </script>
+
+</body>
+</html>

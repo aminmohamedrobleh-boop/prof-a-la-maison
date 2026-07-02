@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil - Amina A.</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="profil.css">
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">Prof<span>àlaMaison</span></div>
+    <div class="nav-liens">
+      <a href="index.html">← Retour</a>
+      <a href="connexion.html" class="btn-connexion">Connexion</a>
+      <a href="inscription.html" class="btn-inscription">S'inscrire</a>
+    </div>
+  </nav>
+
+  <!-- PROFIL -->
+  <div class="profil-container">
+
+    <!-- COLONNE GAUCHE -->
+    <div class="profil-gauche">
+      <div class="profil-avatar violet">AA</div>
+      <h1>Amina A.</h1>
+      <p class="profil-titre">Professeure de Français</p>
+      <span class="badge vert">✓ Disponible</span>
+
+      <div class="profil-infos">
+        <div class="info-ligne">
+          <span class="info-label">📍 Région</span>
+          <span>Djibouti-Ville</span>
+        </div>
+        <div class="info-ligne">
+          <span class="info-label">🎓 Niveau</span>
+          <span>Collège & Lycée</span>
+        </div>
+        <div class="info-ligne">
+          <span class="info-label">⏳ Expérience</span>
+          <span>6 ans</span>
+        </div>
+        <div class="info-ligne">
+          <span class="info-label">💰 Tarif</span>
+          <span>2000 FDJ/h</span>
+        </div>
+        <div class="info-ligne">
+          <span class="info-label">★ Note</span>
+          <span>4.9 (38 avis)</span>
+        </div>
+      </div>
+
+      <button class="btn-reserver" onclick="ouvrirReservation()">Réserver une séance</button>
+      <button class="btn-message">Envoyer un message</button>
+    </div>
+
+    <!-- COLONNE DROITE -->
+    <div class="profil-droite">
+
+      <!-- BIO -->
+      <div class="profil-section">
+        <h2>À propos</h2>
+        <p>Diplômée en Lettres Modernes, j'enseigne le français depuis 6 ans à Djibouti-Ville. Je propose des cours adaptés au niveau de chaque élève, avec une méthode progressive et bienveillante. Je prépare également aux examens du Brevet et du Baccalauréat.</p>
+      </div>
+
+      <!-- DISPONIBILITÉS -->
+      <div class="profil-section">
+        <h2>Disponibilités</h2>
+        <div class="dispo-grille">
+          <div class="dispo-jour">
+            <div class="jour">Lundi</div>
+            <div class="creneau actif">16h - 18h</div>
+            <div class="creneau actif">18h - 20h</div>
+          </div>
+          <div class="dispo-jour">
+            <div class="jour">Mardi</div>
+            <div class="creneau">Indisponible</div>
+          </div>
+          <div class="dispo-jour">
+            <div class="jour">Mercredi</div>
+            <div class="creneau actif">14h - 16h</div>
+            <div class="creneau actif">16h - 18h</div>
+          </div>
+          <div class="dispo-jour">
+            <div class="jour">Jeudi</div>
+            <div class="creneau actif">17h - 19h</div>
+          </div>
+          <div class="dispo-jour">
+            <div class="jour">Vendredi</div>
+            <div class="creneau">Indisponible</div>
+          </div>
+          <div class="dispo-jour">
+            <div class="jour">Samedi</div>
+            <div class="creneau actif">9h - 11h</div>
+            <div class="creneau actif">11h - 13h</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AVIS -->
+      <div class="profil-section">
+        <h2>Avis des parents</h2>
+
+        <div class="avis">
+          <div class="avis-header">
+            <div class="avis-avatar">FA</div>
+            <div>
+              <div class="avis-nom">Fatima A.</div>
+              <div class="avis-etoiles">★★★★★</div>
+            </div>
+          </div>
+          <p class="avis-texte">Excellente professeure, ma fille a beaucoup progressé en français en seulement 2 mois. Je recommande vivement !</p>
+        </div>
+
+        <div class="avis">
+          <div class="avis-header">
+            <div class="avis-avatar">KM</div>
+            <div>
+              <div class="avis-nom">Karim M.</div>
+              <div class="avis-etoiles">★★★★★</div>
+            </div>
+          </div>
+          <p class="avis-texte">Très pédagogue et patiente. Mon fils a eu 16/20 au bac grâce à elle. Merci !</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL RÉSERVATION -->
+  <div class="modal-overlay" id="modal-overlay" style="display:none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Réserver une séance</h2>
+        <button class="modal-fermer" onclick="fermerReservation()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-champ">
+          <label>Professeur</label>
+          <input type="text" value="Amina A. — Français" disabled style="background:#f5f5f5;">
+        </div>
+
+        <div class="form-champ">
+          <label>Date du cours</label>
+          <input type="date" id="res-date">
+        </div>
+
+        <div class="form-champ">
+          <label>Heure</label>
+          <select id="res-heure">
+            <option value="">Choisissez un créneau</option>
+            <option value="16h-18h">Lundi 16h - 18h</option>
+            <option value="18h-20h">Lundi 18h - 20h</option>
+            <option value="14h-16h">Mercredi 14h - 16h</option>
+            <option value="16h-18h-mer">Mercredi 16h - 18h</option>
+            <option value="17h-19h">Jeudi 17h - 19h</option>
+            <option value="9h-11h">Samedi 9h - 11h</option>
+            <option value="11h-13h">Samedi 11h - 13h</option>
+          </select>
+        </div>
+
+        <div class="form-champ">
+          <label>Durée</label>
+          <select id="res-duree">
+            <option value="1">1 heure</option>
+            <option value="2">2 heures</option>
+          </select>
+        </div>
+
+        <div class="reservation-recap">
+          <div class="recap-ligne">
+            <span>Tarif</span>
+            <span>2000 FDJ/h</span>
+          </div>
+          <div class="recap-ligne">
+            <span>Durée</span>
+            <span id="recap-duree">1 heure</span>
+          </div>
+          <div class="recap-ligne total">
+            <span>Total</span>
+            <span id="recap-total">2000 FDJ</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-message" onclick="fermerReservation()">Annuler</button>
+        <button class="btn-reserver" onclick="confirmerReservation()">Confirmer la réservation</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Ouvrir le modal
+    function ouvrirReservation() {
+      const utilisateur = localStorage.getItem('token');
+      if (!utilisateur) {
+        alert('Veuillez vous connecter pour réserver.');
+        window.location = 'connexion.html';
+        return;
+      }
+      document.getElementById('modal-overlay').style.display = 'flex';
+    }
+
+    // Fermer le modal
+    function fermerReservation() {
+      document.getElementById('modal-overlay').style.display = 'none';
+    }
+
+    // Calculer le total
+    document.getElementById && document.addEventListener('DOMContentLoaded', function() {
+      const dureeSelect = document.getElementById('res-duree');
+      if (dureeSelect) {
+        dureeSelect.addEventListener('change', function() {
+          const duree = parseInt(this.value);
+          const total = duree * 2000;
+          document.getElementById('recap-duree').textContent = duree + ' heure' + (duree > 1 ? 's' : '');
+          document.getElementById('recap-total').textContent = total + ' FDJ';
+        });
+      }
+    });
+
+    // Confirmer la réservation
+    async function confirmerReservation() {
+      const utilisateur = JSON.parse(localStorage.getItem('utilisateur'));
+      const date = document.getElementById('res-date').value;
+      const heure = document.getElementById('res-heure').value;
+      const duree = document.getElementById('res-duree').value;
+
+      if (!date || !heure) {
+        alert('Veuillez choisir une date et un créneau.');
+        return;
+      }
+
+      try {
+        const reponse = await fetch('/api/reservation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          },
+          body: JSON.stringify({
+            parent_id: utilisateur.id,
+            professeur_id: 1,
+            date: date,
+            heure: heure,
+            duree: duree
+          })
+        });
+
+        const data = await reponse.json();
+
+        if (reponse.ok) {
+          alert('Réservation confirmée ! Vous pouvez la voir dans votre tableau de bord.');
+          fermerReservation();
+          window.location = 'dashboard.html';
+        } else {
+          alert(data.erreur || 'Erreur lors de la réservation.');
+        }
+
+      } catch (erreur) {
+        alert('Erreur de connexion au serveur.');
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription - Prof à la Maison</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="inscription.css">
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">Prof<span>àlaMaison</span></div>
+    <div class="nav-liens">
+      <a href="index.html">← Retour</a>
+      <a href="connexion.html" class="btn-connexion">Connexion</a>
+    </div>
+  </nav>
+
+  <!-- FORMULAIRE -->
+  <div class="form-container">
+
+    <div class="form-header">
+      <h1>Créer un compte</h1>
+      <p>Rejoignez Prof à la Maison Djibouti</p>
+    </div>
+
+    <!-- CHOIX DU TYPE -->
+    <div class="type-choix">
+      <div class="type-carte actif" id="type-parent" onclick="choisirType('parent')">
+        <div class="type-icone">👨‍👩‍👧</div>
+        <div class="type-titre">Je suis parent</div>
+        <div class="type-desc">Je cherche un prof pour mon enfant</div>
+      </div>
+      <div class="type-carte" id="type-prof" onclick="choisirType('prof')">
+        <div class="type-icone">👨‍🏫</div>
+        <div class="type-titre">Je suis professeur</div>
+        <div class="type-desc">Je veux donner des cours à domicile</div>
+      </div>
+    </div>
+
+    <!-- FORMULAIRE COMMUN -->
+    <div class="form-groupe">
+      <div class="form-ligne">
+        <div class="form-champ">
+          <label>Prénom</label>
+          <input type="text" id="prenom" placeholder="Votre prénom">
+        </div>
+        <div class="form-champ">
+          <label>Nom</label>
+          <input type="text" id="nom" placeholder="Votre nom">
+        </div>
+      </div>
+
+      <div class="form-champ">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="votre@email.com">
+      </div>
+
+      <div class="form-champ">
+        <label>Téléphone</label>
+        <input type="tel" id="telephone" placeholder="+253 77 00 00 00">
+      </div>
+
+      <div class="form-champ">
+        <label>Région</label>
+        <select id="region">
+          <option value="">Choisissez votre région</option>
+          <option value="djibouti-ville">Djibouti-Ville</option>
+          <option value="dikhil">Dikhil</option>
+          <option value="arta">Arta</option>
+          <option value="tadjourah">Tadjourah</option>
+          <option value="obock">Obock</option>
+          <option value="ali-sabieh">Ali-Sabieh</option>
+        </select>
+      </div>
+
+      <div class="form-champ">
+        <label>Mot de passe</label>
+        <input type="password" id="mot_de_passe" placeholder="Minimum 8 caractères">
+      </div>
+
+      <div class="form-champ">
+        <label>Confirmer le mot de passe</label>
+        <input type="password" id="confirmer_mot_de_passe" placeholder="Répétez votre mot de passe">
+      </div>
+    </div>
+
+    <!-- CHAMPS SUPPLÉMENTAIRES PROF -->
+    <div class="form-groupe" id="champs-prof" style="display:none;">
+      <h3 class="form-sous-titre">Informations professionnelles</h3>
+
+      <div class="form-champ">
+        <label>Matière enseignée</label>
+        <select id="matiere">
+          <option value="">Choisissez une matière</option>
+          <option value="francais">Français</option>
+          <option value="mathematiques">Mathématiques</option>
+          <option value="physique-chimie">Physique-Chimie</option>
+          <option value="anglais">Anglais</option>
+          <option value="arabe">Arabe</option>
+          <option value="histoire-geographie">Histoire-Géographie</option>
+        </select>
+      </div>
+
+      <div class="form-champ">
+        <label>Niveau enseigné</label>
+        <select id="niveau">
+          <option value="">Choisissez un niveau</option>
+          <option value="primaire">Primaire</option>
+          <option value="college">Collège</option>
+          <option value="lycee">Lycée</option>
+          <option value="tous">Tous niveaux</option>
+        </select>
+      </div>
+
+      <div class="form-champ">
+        <label>Tarif horaire (FDJ)</label>
+        <input type="number" id="tarif" placeholder="Ex: 2000">
+      </div>
+
+      <div class="form-champ">
+        <label>Années d'expérience</label>
+        <input type="number" id="experience" placeholder="Ex: 5">
+      </div>
+
+      <div class="form-champ">
+        <label>Présentez-vous</label>
+        <textarea id="bio" placeholder="Parlez de votre parcours, votre méthode d'enseignement..."></textarea>
+      </div>
+
+      <!-- UPLOAD DOCUMENT -->
+      <h3 class="form-sous-titre">Vérification d'identité</h3>
+
+      <div class="upload-info">
+        <span class="upload-info-icone">ℹ️</span>
+        <p>Pour garantir la qualité de notre plateforme, nous demandons à chaque professeur de fournir un justificatif. Votre compte sera activé après vérification par notre équipe sous 24h.</p>
+      </div>
+
+      <div class="form-champ">
+        <label>Type de document</label>
+        <select id="type-document">
+          <option value="">Choisissez un document</option>
+          <option>Diplôme universitaire</option>
+          <option>Carte professionnelle d'enseignant</option>
+          <option>Relevé de notes</option>
+          <option>Attestation de travail</option>
+        </select>
+      </div>
+
+      <div class="form-champ">
+        <label>Uploadez votre document</label>
+        <div class="upload-zone" onclick="document.getElementById('fichier-doc').click()">
+          <div class="upload-icone">📄</div>
+          <div class="upload-texte">Cliquez pour choisir un fichier</div>
+          <div class="upload-sous-texte">PDF, JPG ou PNG · Max 5 MB</div>
+          <input type="file" id="fichier-doc" accept=".pdf,.jpg,.jpeg,.png" style="display:none" onchange="afficherFichier(this)">
+        </div>
+        <div class="upload-nom" id="upload-nom"></div>
+      </div>
+
+      <div class="form-champ">
+        <label>Uploadez une photo de profil</label>
+        <div class="upload-zone" onclick="document.getElementById('fichier-photo').click()">
+          <div class="upload-icone">📸</div>
+          <div class="upload-texte">Cliquez pour choisir une photo</div>
+          <div class="upload-sous-texte">JPG ou PNG · Max 2 MB</div>
+          <input type="file" id="fichier-photo" accept=".jpg,.jpeg,.png" style="display:none" onchange="afficherPhoto(this)">
+        </div>
+        <div class="upload-nom" id="upload-photo-nom"></div>
+      </div>
+
+    </div>
+
+    <button class="btn-soumettre">Créer mon compte</button>
+    <p class="form-lien">Déjà un compte ? <a href="connexion.html">Se connecter</a></p>
+
+  </div>
+
+  <script>
+    function choisirType(type) {
+      document.getElementById('type-parent').classList.remove('actif');
+      document.getElementById('type-prof').classList.remove('actif');
+      document.getElementById('type-' + type).classList.add('actif');
+      if (type === 'prof') {
+        document.getElementById('champs-prof').style.display = 'block';
+      } else {
+        document.getElementById('champs-prof').style.display = 'none';
+      }
+    }
+
+    function afficherFichier(input) {
+      if (input.files && input.files[0]) {
+        document.getElementById('upload-nom').textContent = '✓ ' + input.files[0].name;
+        document.getElementById('upload-nom').style.color = '#3B6D11';
+      }
+    }
+
+    function afficherPhoto(input) {
+      if (input.files && input.files[0]) {
+        document.getElementById('upload-photo-nom').textContent = '✓ ' + input.files[0].name;
+        document.getElementById('upload-photo-nom').style.color = '#3B6D11';
+      }
+    }
+
+    document.querySelector('.btn-soumettre').addEventListener('click', async function() {
+      const prenom = document.getElementById('prenom').value;
+      const nom = document.getElementById('nom').value;
+      const email = document.getElementById('email').value;
+      const telephone = document.getElementById('telephone').value;
+      const mot_de_passe = document.getElementById('mot_de_passe').value;
+      const confirmer = document.getElementById('confirmer_mot_de_passe').value;
+      const region = document.getElementById('region').value;
+      const type = document.getElementById('type-prof').classList.contains('actif') ? 'prof' : 'parent';
+
+      if (!prenom || !nom || !email || !mot_de_passe) {
+        alert('Veuillez remplir tous les champs obligatoires.');
+        return;
+      }
+
+      if (mot_de_passe !== confirmer) {
+        alert('Les mots de passe ne correspondent pas.');
+        return;
+      }
+
+      const donnees = { prenom, nom, email, telephone, mot_de_passe, type, region };
+
+      if (type === 'prof') {
+        donnees.matiere = document.getElementById('matiere').value;
+        donnees.niveau = document.getElementById('niveau').value;
+        donnees.tarif = document.getElementById('tarif').value;
+        donnees.experience = document.getElementById('experience').value;
+        donnees.bio = document.getElementById('bio').value;
+      }
+
+      try {
+        const reponse = await fetch('/api/inscription', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(donnees)
+        });
+
+        const data = await reponse.json();
+
+        if (reponse.ok) {
+          alert('Compte créé avec succès ! Vous pouvez maintenant vous connecter.');
+          window.location = 'connexion.html';
+        } else {
+          alert(data.erreur);
+        }
+
+      } catch (erreur) {
+        alert('Erreur de connexion au serveur. Vérifiez que le serveur est démarré.');
+      }
+
+    });
+  </script>
+
+</body>
+</html>

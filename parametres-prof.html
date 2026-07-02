@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paramètres - Prof à la Maison</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="inscription.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">Prof<span>àlaMaison</span></div>
+    <div class="nav-liens">
+      <a href="dashboard-prof.html">← Mon espace</a>
+      <span id="nav-prenom" style="font-size:14px; color:#534AB7; font-weight:500;"></span>
+      <a href="#" onclick="seDeconnecter()" class="btn-connexion">Déconnexion</a>
+    </div>
+  </nav>
+
+  <div class="form-container" style="max-width:700px;">
+
+    <div class="form-header">
+      <h1>Mes paramètres</h1>
+      <p>Modifiez vos informations professionnelles</p>
+    </div>
+
+    <!-- PHOTO DE PROFIL -->
+    <div class="form-groupe">
+      <h3 class="form-sous-titre">📸 Photo de profil</h3>
+      <div style="display:flex; align-items:center; gap:20px;">
+        <div id="avatar-preview" style="width:80px; height:80px; border-radius:50%; background:#EEEDFE; color:#534AB7; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:600;">AA</div>
+        <div class="form-champ" style="flex:1; margin-bottom:0;">
+          <div class="upload-zone" onclick="document.getElementById('photo-input').click()">
+            <div class="upload-icone">📸</div>
+            <div class="upload-texte">Changer la photo</div>
+            <div class="upload-sous-texte">JPG ou PNG · Max 2 MB</div>
+            <input type="file" id="photo-input" accept=".jpg,.jpeg,.png" style="display:none" onchange="previewPhoto(this)">
+          </div>
+          <div class="upload-nom" id="photo-nom"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFORMATIONS PERSONNELLES -->
+    <div class="form-groupe">
+      <h3 class="form-sous-titre">👤 Informations personnelles</h3>
+
+      <div class="form-ligne">
+        <div class="form-champ">
+          <label>Prénom</label>
+          <input type="text" id="prenom" placeholder="Votre prénom">
+        </div>
+        <div class="form-champ">
+          <label>Nom</label>
+          <input type="text" id="nom" placeholder="Votre nom">
+        </div>
+      </div>
+
+      <div class="form-champ">
+        <label>Téléphone</label>
+        <input type="tel" id="telephone" placeholder="+253 77 00 00 00">
+      </div>
+
+      <div class="form-champ">
+        <label>Région</label>
+        <select id="region">
+          <option value="">Choisissez votre région</option>
+          <option value="djibouti-ville">Djibouti-Ville</option>
+          <option value="dikhil">Dikhil</option>
+          <option value="arta">Arta</option>
+          <option value="tadjourah">Tadjourah</option>
+          <option value="obock">Obock</option>
+          <option value="ali-sabieh">Ali-Sabieh</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- INFORMATIONS PROFESSIONNELLES -->
+    <div class="form-groupe">
+      <h3 class="form-sous-titre">📚 Informations professionnelles</h3>
+
+      <div class="form-champ">
+        <label>Matière enseignée</label>
+        <select id="matiere">
+          <option value="">Choisissez une matière</option>
+          <option value="francais">Français</option>
+          <option value="mathematiques">Mathématiques</option>
+          <option value="physique-chimie">Physique-Chimie</option>
+          <option value="anglais">Anglais</option>
+          <option value="arabe">Arabe</option>
+          <option value="histoire-geographie">Histoire-Géographie</option>
+        </select>
+      </div>
+
+      <div class="form-champ">
+        <label>Niveau enseigné</label>
+        <select id="niveau">
+          <option value="">Choisissez un niveau</option>
+          <option value="primaire">Primaire</option>
+          <option value="college">Collège</option>
+          <option value="lycee">Lycée</option>
+          <option value="tous">Tous niveaux</option>
+        </select>
+      </div>
+
+      <div class="form-champ">
+        <label>Tarif horaire (FDJ)</label>
+        <input type="number" id="tarif" placeholder="Ex: 2000">
+      </div>
+
+      <div class="form-champ">
+        <label>Années d'expérience</label>
+        <input type="number" id="experience" placeholder="Ex: 5">
+      </div>
+
+      <div class="form-champ">
+        <label>Bio / Présentation</label>
+        <textarea id="bio" placeholder="Parlez de votre parcours, votre méthode d'enseignement..." style="height:120px;"></textarea>
+      </div>
+    </div>
+
+    <!-- DISPONIBILITÉS -->
+    <div class="form-groupe">
+      <h3 class="form-sous-titre">📅 Disponibilités</h3>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+        <div class="dispo-item">
+          <label style="font-size:13px; font-weight:500; color:#534AB7;">Lundi</label>
+          <input type="text" id="dispo-lundi" placeholder="Ex: 16h-18h, 18h-20h">
+        </div>
+        <div class="dispo-item">
+          <label style="font-size:13px; font-weight:500; color:#534AB7;">Mardi</label>
+          <input type="text" id="dispo-mardi" placeholder="Ex: 14h-16h">
+        </div>
+        <div class="dispo-item">
+          <label style="font-size:13px; font-weight:500; color:#534AB7;">Mercredi</label>
+          <input type="text" id="dispo-mercredi" placeholder="Ex: 14h-16h">
+        </div>
+        <div class="dispo-item">
+          <label style="font-size:13px; font-weight:500; color:#534AB7;">Jeudi</label>
+          <input type="text" id="dispo-jeudi" placeholder="Ex: 17h-19h">
+        </div>
+        <div class="dispo-item">
+          <label style="font-size:13px; font-weight:500; color:#534AB7;">Vendredi</label>
+          <input type="text" id="dispo-vendredi" placeholder="Laisser vide si indisponible">
+        </div>
+        <div class="dispo-item">
+          <label style="font-size:13px; font-weight:500; color:#534AB7;">Samedi</label>
+          <input type="text" id="dispo-samedi" placeholder="Ex: 9h-11h">
+        </div>
+        <div class="dispo-item">
+          <label style="font-size:13px; font-weight:500; color:#534AB7;">Dimanche</label>
+          <input type="text" id="dispo-dimanche" placeholder="Laisser vide si indisponible">
+        </div>
+      </div>
+    </div>
+
+    <!-- DIPLÔME -->
+    <div class="form-groupe">
+      <h3 class="form-sous-titre">🎓 Diplôme / Document</h3>
+
+      <div class="upload-info">
+        <span class="upload-info-icone">ℹ️</span>
+        <p>Vous pouvez mettre à jour votre document de vérification. Votre compte sera re-vérifié par notre équipe.</p>
+      </div>
+
+      <div class="form-champ">
+        <label>Type de document</label>
+        <select id="type-document">
+          <option value="">Choisissez un document</option>
+          <option>Diplôme universitaire</option>
+          <option>Carte professionnelle d'enseignant</option>
+          <option>Relevé de notes</option>
+          <option>Attestation de travail</option>
+        </select>
+      </div>
+
+      <div class="form-champ">
+        <label>Uploadez votre document</label>
+        <div class="upload-zone" onclick="document.getElementById('doc-input').click()">
+          <div class="upload-icone">📄</div>
+          <div class="upload-texte">Cliquez pour choisir un fichier</div>
+          <div class="upload-sous-texte">PDF, JPG ou PNG · Max 5 MB</div>
+          <input type="file" id="doc-input" accept=".pdf,.jpg,.jpeg,.png" style="display:none" onchange="afficherDoc(this)">
+        </div>
+        <div class="upload-nom" id="doc-nom"></div>
+      </div>
+    </div>
+
+    <!-- CHANGER MOT DE PASSE -->
+    <div class="form-groupe">
+      <h3 class="form-sous-titre">🔐 Changer le mot de passe</h3>
+
+      <div class="form-champ">
+        <label>Ancien mot de passe</label>
+        <input type="password" id="ancien-mdp" placeholder="Votre mot de passe actuel">
+      </div>
+
+      <div class="form-champ">
+        <label>Nouveau mot de passe</label>
+        <input type="password" id="nouveau-mdp" placeholder="Minimum 8 caractères">
+      </div>
+
+      <div class="form-champ">
+        <label>Confirmer le nouveau mot de passe</label>
+        <input type="password" id="confirmer-mdp" placeholder="Répétez le nouveau mot de passe">
+      </div>
+    </div>
+
+    <button class="btn-soumettre" onclick="sauvegarder()">💾 Sauvegarder les modifications</button>
+
+  </div>
+
+  <script>
+    const utilisateur = JSON.parse(localStorage.getItem('utilisateur'));
+
+    if (!utilisateur || utilisateur.type !== 'prof') {
+      window.location = 'connexion.html';
+    }
+
+    document.getElementById('nav-prenom').textContent = utilisateur.prenom + ' ' + utilisateur.nom;
+    document.getElementById('avatar-preview').textContent = utilisateur.prenom[0] + utilisateur.nom[0];
+
+    // Charger les données du prof depuis la base de données
+    async function chargerProfil() {
+      try {
+        const reponse = await fetch('/api/prof/profil/' + utilisateur.id);
+        const profil = await reponse.json();
+
+        if (!profil) return;
+
+        document.getElementById('prenom').value = profil.prenom || '';
+        document.getElementById('nom').value = profil.nom || '';
+        document.getElementById('telephone').value = profil.telephone || '';
+        document.getElementById('bio').value = profil.bio || '';
+        document.getElementById('tarif').value = profil.tarif || '';
+        document.getElementById('experience').value = profil.experience || '';
+
+        if (profil.region) document.getElementById('region').value = profil.region;
+        if (profil.matiere) document.getElementById('matiere').value = profil.matiere;
+        if (profil.niveau) document.getElementById('niveau').value = profil.niveau;
+
+        if (profil.disponibilites) {
+          const dispos = JSON.parse(profil.disponibilites);
+          document.getElementById('dispo-lundi').value = dispos.lundi || '';
+          document.getElementById('dispo-mardi').value = dispos.mardi || '';
+          document.getElementById('dispo-mercredi').value = dispos.mercredi || '';
+          document.getElementById('dispo-jeudi').value = dispos.jeudi || '';
+          document.getElementById('dispo-vendredi').value = dispos.vendredi || '';
+          document.getElementById('dispo-samedi').value = dispos.samedi || '';
+          document.getElementById('dispo-dimanche').value = dispos.dimanche || '';
+        }
+
+      } catch (erreur) {
+        console.log('Erreur chargement profil:', erreur);
+      }
+    }
+
+    chargerProfil();
+
+    function previewPhoto(input) {
+      if (input.files && input.files[0]) {
+        document.getElementById('photo-nom').textContent = '✓ ' + input.files[0].name;
+        document.getElementById('photo-nom').style.color = '#3B6D11';
+      }
+    }
+
+    function afficherDoc(input) {
+      if (input.files && input.files[0]) {
+        document.getElementById('doc-nom').textContent = '✓ ' + input.files[0].name;
+        document.getElementById('doc-nom').style.color = '#3B6D11';
+      }
+    }
+
+    async function sauvegarder() {
+      const donnees = {
+        prenom: document.getElementById('prenom').value,
+        nom: document.getElementById('nom').value,
+        telephone: document.getElementById('telephone').value,
+        region: document.getElementById('region').value,
+        matiere: document.getElementById('matiere').value,
+        niveau: document.getElementById('niveau').value,
+        tarif: document.getElementById('tarif').value,
+        experience: document.getElementById('experience').value,
+        bio: document.getElementById('bio').value,
+        disponibilites: {
+          lundi: document.getElementById('dispo-lundi').value,
+          mardi: document.getElementById('dispo-mardi').value,
+          mercredi: document.getElementById('dispo-mercredi').value,
+          jeudi: document.getElementById('dispo-jeudi').value,
+          vendredi: document.getElementById('dispo-vendredi').value,
+          samedi: document.getElementById('dispo-samedi').value,
+          dimanche: document.getElementById('dispo-dimanche').value,
+        }
+      };
+
+      try {
+        const reponse = await fetch('/api/prof/parametres/' + utilisateur.id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          },
+          body: JSON.stringify(donnees)
+        });
+
+        const data = await reponse.json();
+
+        if (reponse.ok) {
+          alert('✅ Modifications sauvegardées avec succès !');
+        } else {
+          alert('Erreur : ' + data.erreur);
+        }
+
+      } catch (erreur) {
+        alert('Erreur de connexion au serveur.');
+      }
+    }
+
+    function seDeconnecter() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('utilisateur');
+      window.location = 'index.html';
+    }
+  </script>
+
+</body>
+</html>

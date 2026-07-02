@@ -1,0 +1,276 @@
+.profil-container {
+  display: flex;
+  gap: 32px;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 24px;
+  align-items: flex-start;
+}
+
+/* COLONNE GAUCHE */
+.profil-gauche {
+  width: 280px;
+  flex-shrink: 0;
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+}
+
+.profil-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 auto 16px;
+}
+
+.profil-gauche h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.profil-titre {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.profil-infos {
+  margin: 20px 0;
+  text-align: left;
+}
+
+.info-ligne {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 13px;
+}
+
+.info-label {
+  color: #888;
+}
+
+.btn-reserver {
+  width: 100%;
+  padding: 12px;
+  background: #534AB7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.btn-reserver:hover {
+  background: #3C3489;
+}
+
+.btn-message {
+  width: 100%;
+  padding: 12px;
+  background: white;
+  color: #534AB7;
+  border: 1px solid #534AB7;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-message:hover {
+  background: #EEEDFE;
+}
+
+/* COLONNE DROITE */
+.profil-droite {
+  flex: 1;
+}
+
+.profil-section {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.profil-section h2 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: #222;
+}
+
+.profil-section p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* DISPONIBILITÉS */
+.dispo-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.dispo-jour {
+  text-align: center;
+}
+
+.jour {
+  font-size: 12px;
+  font-weight: 600;
+  color: #534AB7;
+  margin-bottom: 6px;
+}
+
+.creneau {
+  font-size: 11px;
+  padding: 5px 4px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  background: #f5f5f5;
+  color: #aaa;
+}
+
+.creneau.actif {
+  background: #EAF3DE;
+  color: #3B6D11;
+}
+
+/* AVIS */
+.avis {
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.avis-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.avis-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #EEEDFE;
+  color: #534AB7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.avis-nom {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.avis-etoiles {
+  font-size: 12px;
+  color: #BA7517;
+}
+
+.avis-texte {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+}
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.modal-fermer {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #777;
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.modal-footer button {
+  flex: 1;
+}
+
+/* RECAP */
+.reservation-recap {
+  background: #f8f8f8;
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.recap-ligne {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 4px 0;
+  color: #555;
+}
+
+.recap-ligne.total {
+  border-top: 1px solid #e5e5e5;
+  margin-top: 8px;
+  padding-top: 8px;
+  font-weight: 600;
+  color: #534AB7;
+  font-size: 15px;
+}

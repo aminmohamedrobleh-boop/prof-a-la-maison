@@ -1,0 +1,312 @@
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #f8f8f8;
+  color: #222;
+}
+
+/* ===== NAVIGATION ===== */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: white;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 600;
+  color: #534AB7;
+}
+
+.logo span {
+  color: #222;
+}
+
+.nav-liens {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-liens a {
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+}
+
+.btn-connexion {
+  border: 1px solid #ccc;
+  padding: 8px 18px;
+  border-radius: 8px;
+  color: #222 !important;
+}
+
+.btn-inscription {
+  background: #534AB7;
+  color: white !important;
+  padding: 8px 18px;
+  border-radius: 8px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: #EEEDFE;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero h1 {
+  font-size: 36px;
+  font-weight: 600;
+  color: #3C3489;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 16px;
+  color: #534AB7;
+  margin-bottom: 30px;
+}
+
+/* ===== BARRE DE RECHERCHE ===== */
+.recherche {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.recherche select,
+.recherche input {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background: white;
+}
+
+.recherche button {
+  padding: 12px 28px;
+  background: #534AB7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.recherche button:hover {
+  background: #3C3489;
+}
+
+/* ===== SECTION PROFESSEURS ===== */
+.profs {
+  padding: 48px 40px;
+  background: white;
+}
+
+.profs h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.filtres {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.filtre {
+  padding: 6px 16px;
+  border-radius: 99px;
+  border: 1px solid #ccc;
+  background: white;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+}
+
+.filtre.actif {
+  background: #EEEDFE;
+  border-color: #534AB7;
+  color: #534AB7;
+}
+
+.grille-profs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.carte-prof {
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 20px;
+  background: white;
+  transition: border-color 0.2s;
+}
+
+.carte-prof:hover {
+  border-color: #534AB7;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.avatar.violet { background: #EEEDFE; color: #534AB7; }
+.avatar.vert   { background: #E1F5EE; color: #0F6E56; }
+.avatar.bleu   { background: #E6F1FB; color: #185FA5; }
+.avatar.orange { background: #FAEEDA; color: #854F0B; }
+
+.badge {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.badge.vert   { background: #EAF3DE; color: #3B6D11; }
+.badge.violet { background: #EEEDFE; color: #534AB7; }
+
+.carte-prof h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.matiere {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.ville {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.bas-carte {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 10px;
+}
+
+.etoiles {
+  font-size: 12px;
+  color: #BA7517;
+}
+
+.prix {
+  font-size: 14px;
+  font-weight: 600;
+  color: #534AB7;
+}
+
+/* ===== COMMENT ÇA MARCHE ===== */
+.comment {
+  background: #f8f8f8;
+  padding: 48px 40px;
+  text-align: center;
+}
+
+.comment h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 32px;
+  color: #222;
+}
+
+.etapes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.etape {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 24px 16px;
+}
+
+.icone {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.etape-num {
+  font-size: 11px;
+  color: #534AB7;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.etape h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.etape p {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.5;
+}
+
+/* ===== PIED DE PAGE ===== */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  border-top: 1px solid #e5e5e5;
+  background: white;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-text {
+  font-size: 12px;
+  color: #888;
+}
+
+.footer-liens {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-liens a {
+  font-size: 13px;
+  color: #555;
+  text-decoration: none;
+}
+
+.footer-liens a:hover {
+  color: #534AB7;
+}
