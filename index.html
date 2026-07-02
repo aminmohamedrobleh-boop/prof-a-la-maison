@@ -12,7 +12,7 @@
   <!-- NAVIGATION -->
   <nav>
     <div class="logo">Prof<span>àlaMaison</span></div>
-    <div class="nav-liens">
+    <div class="nav-liens" id="nav-liens">
       <a href="#">Trouver un prof</a>
       <a href="#">Devenir prof</a>
       <a href="connexion.html" class="btn-connexion">Connexion</a>
@@ -115,6 +115,18 @@
 
   <script>
     const couleurs = ['violet', 'vert', 'bleu', 'orange'];
+
+    // Adapter la nav selon connexion
+    const utilisateurConnecte = JSON.parse(localStorage.getItem('utilisateur'));
+    if (utilisateurConnecte) {
+      document.getElementById('nav-liens').innerHTML = `
+        <a href="#">Trouver un prof</a>
+        <a href="#">Devenir prof</a>
+        <span style="font-size:14px; color:#534AB7; font-weight:500;">Bonjour ${utilisateurConnecte.prenom} !</span>
+        <a href="${utilisateurConnecte.type === 'prof' ? 'dashboard-prof.html' : 'dashboard.html'}" class="btn-connexion">Mon espace</a>
+        <a href="#" onclick="localStorage.removeItem('token'); localStorage.removeItem('utilisateur'); window.location='index.html';" class="btn-connexion">Déconnexion</a>
+      `;
+    }
 
     async function chargerProfs() {
       try {
