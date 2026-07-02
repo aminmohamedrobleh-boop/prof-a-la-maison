@@ -28,7 +28,7 @@
     <div class="stats-grille">
       <div class="stat-carte">
         <div class="stat-num" id="total-profs">0</div>
-        <div class="stat-label">Profs inscrits</div>
+        <div class="stat-label">Profs validés</div>
       </div>
       <div class="stat-carte">
         <div class="stat-num" id="profs-attente">0</div>
@@ -62,7 +62,7 @@
       const attente = profs.filter(p => p.verifie === 0);
       const valides = profs.filter(p => p.verifie === 1);
 
-      document.getElementById('total-profs').textContent = profs.length;
+      document.getElementById('total-profs').textContent = valides.length;
       document.getElementById('profs-attente').textContent = attente.length;
       document.getElementById('profs-valides').textContent = valides.length;
 
