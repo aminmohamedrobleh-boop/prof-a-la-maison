@@ -120,8 +120,6 @@
     const utilisateurConnecte = JSON.parse(localStorage.getItem('utilisateur'));
     if (utilisateurConnecte) {
       document.getElementById('nav-liens').innerHTML = `
-        <a href="#">Trouver un prof</a>
-        <a href="#">Devenir prof</a>
         <span style="font-size:14px; color:#534AB7; font-weight:500;">Bonjour ${utilisateurConnecte.prenom} !</span>
         <a href="${utilisateurConnecte.type === 'prof' ? 'dashboard-prof.html' : 'dashboard.html'}" class="btn-connexion">Mon espace</a>
         <a href="#" onclick="localStorage.removeItem('token'); localStorage.removeItem('utilisateur'); window.location='index.html';" class="btn-connexion">Déconnexion</a>
