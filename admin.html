@@ -83,11 +83,16 @@
             </div>
             <div class="res-infos">
               <span>📧 ${p.email}</span>
-              <span>📞 ${p.telephone}</span>
+              <span>📞 ${p.telephone || 'Non renseigné'}</span>
               <span>💰 ${p.tarif} FDJ/h</span>
               <span>⏳ ${p.experience} ans exp.</span>
             </div>
             <p style="font-size:13px; color:#555; margin-top:10px;">${p.bio || 'Pas de bio.'}</p>
+            ${p.document ? `
+              <a href="${p.document}" target="_blank" style="display:inline-flex; align-items:center; gap:6px; background:#EEEDFE; color:#534AB7; padding:8px 14px; border-radius:8px; font-size:13px; text-decoration:none; margin-top:8px;">
+                📄 Voir le document
+              </a>
+            ` : '<p style="font-size:12px; color:#aaa; margin-top:8px;">⚠️ Aucun document uploadé</p>'}
             <div class="res-actions">
               <button class="btn-accepter" onclick="validerProf(${p.prof_id}, 1)">✓ Valider</button>
               <button class="btn-refuser" onclick="validerProf(${p.prof_id}, 0)">✕ Refuser</button>
@@ -116,6 +121,11 @@
               <span>💰 ${p.tarif} FDJ/h</span>
               <span>⏳ ${p.experience} ans exp.</span>
             </div>
+            ${p.document ? `
+              <a href="${p.document}" target="_blank" style="display:inline-flex; align-items:center; gap:6px; background:#EAF3DE; color:#3B6D11; padding:8px 14px; border-radius:8px; font-size:13px; text-decoration:none; margin-top:8px;">
+                📄 Voir le document
+              </a>
+            ` : '<p style="font-size:12px; color:#aaa; margin-top:8px;">⚠️ Aucun document uploadé</p>'}
             <div class="res-actions">
               <button class="btn-refuser" onclick="validerProf(${p.prof_id}, 0)">Retirer la validation</button>
             </div>
