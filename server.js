@@ -47,7 +47,7 @@ app.post('/api/inscription', async (req, res) => {
       `, [resultat.rows[0].id, matiere, niveau, tarif, experience, bio]);
     }
 
-    res.json({ message: 'Compte créé avec succès !' });
+    res.json({ message: 'Compte créé avec succès !', utilisateur_id: resultat.rows[0].id });
   } catch (err) {
     console.error(err);
     res.status(500).json({ erreur: 'Erreur serveur.' });
