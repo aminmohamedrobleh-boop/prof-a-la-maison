@@ -5,11 +5,19 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const pool = require('./database-pg');
 const { Resend } = require('resend');
+const multer = require('multer');
+const { createClient } = require('@supabase/supabase-js');
 
 dotenv.config();
 
 const app = express();
 const resend = new Resend(process.env.RESEND_API_KEY);
+const upload = multer({ storage: multer.memoryStorage() });
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 
 app.use(cors());
 app.use(express.json());
@@ -179,7 +187,7 @@ app.get('/api/admin/professeurs', async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT u.prenom, u.nom, u.email, u.telephone, u.region,
-             p.id as prof_id, p.matiere, p.niveau, p.tarif, p.experience, p.bio, p.verifie
+             p.id as prof_id, p.matiere, p.niveau, p.tarif, p.experience, p.bio, p.verifie, p.document
       FROM professeurs p
       JOIN utilisateurs u ON p.utilisateur_id = u.id
       ORDER BY p.verifie ASC, u.date_inscription DESC
@@ -252,6 +260,38 @@ app.get('/api/prof/profil/:id', async (req, res) => {
     res.json(result.rows[0]);
   } catch (err) {
     res.status(500).json({ erreur: 'Erreur serveur.' });
+  }
+});
+
+// ===== UPLOAD DOCUMENT =====
+app.post('/api/upload-document', upload.single('document'), async (req, res) => {
+  try {
+    const fichier = req.file;
+    const utilisateur_id = req.body.utilisateur_id;
+    const nomFichier = Date.now() + '-' + fichier.originalname;
+
+    const { data, error } = await supabase.storage
+      .from('documents')
+      .upload(nomFichier, fichier.buffer, {
+        contentType: fichier.mimetype
+      });
+
+    if (error) throw error;
+
+    const { data: urlData } = supabase.storage
+      .from('documents')
+      .getPublicUrl(nomFichier);
+
+    await pool.query(
+      'UPDATE professeurs SET document = $1 WHERE utilisateur_id = $2',
+      [urlData.publicUrl, utilisateur_id]
+    );
+
+    res.json({ url: urlData.publicUrl });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erreur: 'Erreur upload.' });
   }
 });
 
